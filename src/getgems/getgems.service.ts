@@ -4,6 +4,10 @@ export class GetGemsService {
     public readApi: ReadApiService;
 
     constructor() {
-        this.readApi = new ReadApiService();
+        this.readApi = new ReadApiService('');
     }
-}
+
+    async test() {
+        this.readApi.getNftsInCollection('');
+    }
+} 
