@@ -14,7 +14,7 @@ export class ReadApiService {
 
     //Get info about NFT by address. If there is no such NFT, you will receive error 404.
     async getNftByAddress(address: string): Promise<any> {
-        return this.makeApiRequest(, `nft/${nft}`); //https://api.getgems.io/public-api/docs.json - ReadApi
+        //return this.makeApiRequest(, `nft/${nft}`); //https://api.getgems.io/public-api/docs.json - ReadApi
     }
 
     //Get NFTs in specified collection
