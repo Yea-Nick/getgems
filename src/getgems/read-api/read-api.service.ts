@@ -10,7 +10,7 @@ export class ReadApiService {
     constructor(private readonly API_KEY: string) { }
 
     //Get NFT collection info
-    async getNftCollectionInfo(collectionAddress: string) {
+    async getCollectionByAddress(collectionAddress: string) {
         return this.makeApiRequest<NftCollectionFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `collection/${collectionAddress}`,
@@ -26,7 +26,7 @@ export class ReadApiService {
     }
 
     //Get NFTs in specified collection
-    async getNftsInCollection(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getCollectionNfts(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `nfts/collection/${collectionAddress}`,
@@ -35,7 +35,7 @@ export class ReadApiService {
     }
 
     //Get NFTs of specified address
-    async getNftsByAddress(ownerAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getOwnerNfts(ownerAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `nfts/owner/${ownerAddress}`,
@@ -44,7 +44,7 @@ export class ReadApiService {
     };
 
     //Get collection NFTs by specified owner address
-    async getCollectionNftsByOwner(collectionAddress: string, ownerAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getCollectionOwnerNfts(collectionAddress: string, ownerAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `nfts/collection/${collectionAddress}/owner/${ownerAddress}`,
@@ -53,7 +53,7 @@ export class ReadApiService {
     };
 
     //Get Collection NFTs on sale
-    async getCollectionNftsOnSale(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getNftsOnSale(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | DefaultErrorObject>({
             method: EApiRequestMethod.GET,
             path: `nfts/on-sale/${collectionAddress}`,
@@ -62,7 +62,7 @@ export class ReadApiService {
     };
 
     //Get Collection offchain NFTs on sale
-    async getOffchainCollectionNftsOnSale(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getOffchainNftsOnSale(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | DefaultErrorObject>({
             method: EApiRequestMethod.GET,
             path: `nfts/offchain/on-sale/${collectionAddress}`,
@@ -71,7 +71,7 @@ export class ReadApiService {
     };
 
     //Get all offchain Telegram Gifts on sale
-    async getAllOffchainTelegramGiftsOnSale(queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getOffchainGiftsOnSale(queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | DefaultErrorObject>({
             method: EApiRequestMethod.GET,
             path: `nfts/offchain/on-sale/gifts`,
@@ -89,7 +89,7 @@ export class ReadApiService {
     };
 
     //Get NFTs sorted by lastReindexAtCursor for incremental synchronization
-    async getNftsSortedByLastReindexCursor(queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getNftsUpdates(queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsUpdateResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `nfts/updates`,
@@ -115,7 +115,7 @@ export class ReadApiService {
     };
 
     //Get Collection history
-    async getCollectionHistory(collectionAddress: string, queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
+    async getNftCollectionHistory(collectionAddress: string, queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
         return this.makeApiRequest<NftItemHistoryResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `collection/history/${collectionAddress}`,
@@ -124,7 +124,7 @@ export class ReadApiService {
     };
 
     //Get Telegram Gifts history
-    async getTelegramGiftsHistory(queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
+    async getGiftsHistory(queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
         return this.makeApiRequest<NftItemHistoryResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `nfts/history/gifts`,
@@ -133,7 +133,7 @@ export class ReadApiService {
     };
 
     //Get Telegram Stickers history
-    async getTelegramStickersHistory(queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
+    async getStickersHistory(queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
         return this.makeApiRequest<NftItemHistoryResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `nfts/history/stickers`,
@@ -142,7 +142,7 @@ export class ReadApiService {
     };
 
     //Create transaction to buy NFT on sale
-    async createBuyTransaction(nftAddress: string, body: BuyNftFixPriceRequest) {
+    async buyNftFixPrice(nftAddress: string, body: BuyNftFixPriceRequest) {
         return this.makeApiRequest<TransactionResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
             path: `nfts/buy-fix-price/${nftAddress}`,
@@ -151,7 +151,7 @@ export class ReadApiService {
     };
 
     //Create transaction to put up NFT for sale (fix price)
-    async createSellTransaction(nftAddress: string, body: PutUpNftForSaleRequest) {
+    async putUpNftForSaleFixPrice(nftAddress: string, body: PutUpNftForSaleRequest) {
         return this.makeApiRequest<TransactionResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
             path: `nfts/put-on-sale-fix-price/${nftAddress}`,
@@ -160,7 +160,7 @@ export class ReadApiService {
     };
 
     //Get collection owners statistics
-    async getCollectionOwnersStats(collectionAddress: string) {
+    async getCollectionStatsCount(collectionAddress: string) {
         return this.makeApiRequest<NftCollectionStatsCountResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `collection/stats-count/${collectionAddress}`
@@ -168,7 +168,7 @@ export class ReadApiService {
     };
 
     //Get collection owners top
-    async getCollectionOwnersTop(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getCollectionTopOwners(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftCollectionOwnersTopResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `collection/top-owners/${collectionAddress}`,
@@ -185,7 +185,7 @@ export class ReadApiService {
     };
 
     //NOT IMPLEMENTED. Get user NFTs in specified collection
-    //async getUserNftsInCollection() { };
+    //async userSearch() { };
 
     //Get collection basic info data
     async getCollectionBasicInfo(collectionAddress: string) {
@@ -196,7 +196,7 @@ export class ReadApiService {
     };
 
     //Reindex Nft collection metadata
-    async reindexNftCollectionMetadata(collectionAddress: string) {
+    async reindexNftCollection(collectionAddress: string) {
         return this.makeApiRequest<ReindexResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
             path: `collection/reindex/${collectionAddress}`
@@ -204,7 +204,7 @@ export class ReadApiService {
     };
 
     //Reindex Nft metadata
-    async reindexNftMetadata(nftAddress: string) {
+    async reindexNftItem(nftAddress: string) {
         return this.makeApiRequest<ReindexResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
             path: `nft/reindex/${nftAddress}`
@@ -238,7 +238,7 @@ export class ReadApiService {
     };
 
     //Check transaction status
-    async checkTransactionStatus(body: CheckTxPayload) {
+    async checkTxStatus(body: CheckTxPayload) {
         return this.makeApiRequest<TonTxStatusResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
             path: `check-tx-status`,
@@ -247,7 +247,7 @@ export class ReadApiService {
     };
 
     //Get top collections
-    async getTopCollections(queryParams?: { kind?: ECollectionsTopKind, after?: AfterParameter, limit?: LimitParameter; }) {
+    async getCollectionTop(queryParams?: { kind?: ECollectionsTopKind, after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<CollectionsTopResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `collections/top`,
@@ -256,7 +256,7 @@ export class ReadApiService {
     };
 
     //Get top gift collections
-    async getTopGiftCollections(queryParams?: { kind?: ECollectionsTopKind, after?: AfterParameter, limit?: LimitParameter; }) {
+    async getGiftTop(queryParams?: { kind?: ECollectionsTopKind, after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<CollectionsTopResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `gifts/collections/top`,

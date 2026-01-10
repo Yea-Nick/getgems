@@ -1,0 +1,1007 @@
+{
+    "/minting/{collectionAddress}": {
+        "post": {
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "createMinting",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Minting is in queue",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MintingStatusResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/MintingRequest"
+                        }
+                    }
+                }
+            },
+            "description": "Create minting task"
+        }
+    },
+    "/minting/{collectionAddress}/batch": {
+        "post": {
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "createBatchMinting",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Minting is in queue",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchMintingStatusResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/BatchMintingRequest"
+                        }
+                    }
+                }
+            },
+            "description": "Create minting task"
+        }
+    },
+    "/v2/minting/{collectionAddress}/batch": {
+        "post": {
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "v2CreateBatchMinting",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Minting is in queue",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchMintingStatusResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/V2BatchMintingRequest"
+                        }
+                    }
+                }
+            },
+            "description": "Create minting task"
+        }
+    },
+    "/v2/minting/{collectionAddress}/batch-status": {
+        "post": {
+            "tags": [
+                "MintingApi"
+            ],
+            "description": "Get batch minting status",
+            "operationId": "v2GetBatchStatus",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": false,
+                            "properties": {
+                                "requestIds": {
+                                    "type": "array",
+                                    "description": "Array of requestIds",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Minting is in queue",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/BatchMintingStatusResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/minting/{collectionAddress}/wallet-balance": {
+        "get": {
+            "tags": [
+                "MintingApi",
+                "cNFTApi"
+            ],
+            "operationId": "mintingWalletBalance",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Wallet balance (in nano TON)",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MintingWalletBalanceResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "description": "Get balance of wallet, which is using for minting or CNFT collection."
+        }
+    },
+    "/minting/{collectionAddress}/refund/{receiverAddress}": {
+        "post": {
+            "tags": [
+                "MintingApi",
+                "cNFTApi"
+            ],
+            "operationId": "mintingWalletRefund",
+            "description": "Refund wallet balance to owner address or royalty address (which you have specified for this collection). Can be used for minting or CNFT collection.",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "in": "path",
+                    "required": true,
+                    "description": "It must be owner address or royalty address",
+                    "name": "receiverAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Everything is fine. The transaction with funds has been sent to your royalty address",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MintingMessageResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/minting/{collectionAddress}/deactivate-api": {
+        "post": {
+            "tags": [
+                "MintingApi",
+                "cNFTApi"
+            ],
+            "operationId": "mintingDeactivateApi",
+            "description": "Deactivate collection api. You will not be able to use the api for this collection in future.  Can be used for minting or CNFT collection.",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Everything is fine. Api for this collection has been deactivated",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MintingMessageResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/minting/{collectionAddress}/{requestId}": {
+        "get": {
+            "tags": [
+                "MintingApi"
+            ],
+            "description": "Get minting status",
+            "operationId": "getStatus",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "in": "path",
+                    "name": "requestId",
+                    "required": true,
+                    "description": "requestId from POST request (Create minting task)",
+                    "schema": {
+                        "type": "string",
+                        "example": "1689451433227"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Minting status",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MintingStatusResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/minting/{collectionAddress}/list": {
+        "get": {
+            "tags": [
+                "MintingApi"
+            ],
+            "description": "Get minting list",
+            "operationId": "getMintingList",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "$ref": "#/components/parameters/AfterParameter"
+                },
+                {
+                    "$ref": "#/components/parameters/LimitParameter"
+                },
+                {
+                    "in": "query",
+                    "required": false,
+                    "description": "Reverse sort order. By default: from new to old. With reverse=true: from old to new.",
+                    "name": "reverse",
+                    "schema": {
+                        "type": "boolean"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Minting list response",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MintingListResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/minting/create-upload/{collectionAddress}/{fileName}": {
+        "post": {
+            "tags": [
+                "MintingApi"
+            ],
+            "description": "Getting data for file uploading, Only this file extension supported jpg, png, gif, mp4, json, webp, file name must match [a-zA-Z0-9]+",
+            "operationId": "createUpload",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "fileName",
+                    "schema": {
+                        "type": "string",
+                        "example": "test_test"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Upload credentials",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UploadResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/nft/collection/by-address/{collectionAddress}/{nftAddress}": {
+        "get": {
+            "tags": [
+                "MintingApi"
+            ],
+            "description": "Get info about NFT by address. If there is no such NFT, you will receive error 404.",
+            "operationId": "getNftByAddress",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "nftAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "NftItem",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NftItemResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/nft/collection/items/{collectionAddress}": {
+        "get": {
+            "tags": [
+                "MintingApi"
+            ],
+            "description": "Get all NFTs from collection. This method returns NFTs in batches of 100. To get the next 100 NFTs, you need to pass the *after* parameter with the value of *cursor* from the previous request. \n\nSend first request without the *after* parameter.\n\n*cursor* = null means that you have received the last NFT in this collection",
+            "operationId": "getNftsInCollection",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "$ref": "#/components/parameters/AfterParameter"
+                },
+                {
+                    "$ref": "#/components/parameters/LimitParameter"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Nft List",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NftItemsResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/nft/collection/items/{collectionAddress}/{userAddress}": {
+        "get": {
+            "tags": [
+                "MintingApi"
+            ],
+            "description": "Get all NFTs in the collection that belong to the specified user. This method returns NFTs in batches of 100. To get the next 100 NFTs, you need to pass the *after* parameter with the value of *cursor* from the previous request. \n\nSend first request without the *after* parameter.\n\n*cursor* = null means that you have received the last NFT in this collection",
+            "operationId": "getUserNftsInCollection",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "userAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQB5HQfjevz9su4ZQGcDT_4IB0IUGh5PM2vAXPU2e4O6_d2j"
+                    }
+                },
+                {
+                    "$ref": "#/components/parameters/AfterParameter"
+                },
+                {
+                    "$ref": "#/components/parameters/LimitParameter"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Nft List",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NftItemsResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/minting/{collectionAddress}/update/{nftAddress}": {
+        "get": {
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "getUpdateNftStatus",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "nftAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD_YOJ6i9-7S033oNNAz1N6dy73uExuBE383hV65_wN9Xsq"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "update in queue",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "description": "This method can be used to check the status of an NFT update. The method will return data only if you previously made a POST request with the same **nftAddress**.",
+            "summary": "Status of an NFT update"
+        },
+        "post": {
+            "description": "This method can be used to update metadata of already minted NFT. You can update name, description, attributes and image throw this method. \nChanging the owner or burning the NFT is impossible.\nThe cost of updating the metadata of one NFT is about 0.013 TON.\nAn NFT can be updated no more than once every 20 minutes. If you make the request multiple times within a minute, it will return the status of the previous update.\n\nIf you only need to update the image URL, you can specify just one field ```image```, in the ```update``` object.. \n```json\n{\n  \"update\": { \"image\": \"https://s.getgems.io/...\" }\n}\n```\nIf you are updating buttons, you need to provide the entire array of buttons, even if you only want to change the value of a single button.\nThere are two different fields for updating attributes: *attributes* and *upsertAttributes*. *attributes* will overwrite all attributes. *upsertAttributes* will merge the existing NFT attributes with the ones provided. Attribute uniqueness is checking by the trait_type field.",
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "updateNft",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "nftAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD_YOJ6i9-7S033oNNAz1N6dy73uExuBE383hV65_wN9Xsq"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "update in queue",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/UpdateRequest"
+                        }
+                    }
+                }
+            },
+            "summary": "NFT metadata updating"
+        }
+    },
+    "/minting/{collectionAddress}/new-collection/{requestId}": {
+        "get": {
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "newNftCollectionStatus",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": ""
+                    }
+                },
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "requestId",
+                    "schema": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Status of minting new collection",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NftCollectionCreatingStatusResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Error response (Bad request, validation error and so on)",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DefaultErrorObject"
+                            }
+                        }
+                    }
+                },
+                "default": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/minting/{collectionAddress}/new-collection": {
+        "post": {
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "createNewNftCollection",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Status of minting new collection",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/NftCollectionCreatingStatusResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Error response (Bad request, validation error and so on)",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/DefaultErrorObject"
+                            }
+                        }
+                    }
+                },
+                "default": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/CreateNewCollectionRequest"
+                        }
+                    }
+                }
+            },
+            "description": "Create new NFT collection for auto minting, new collection will use same wallet and api token"
+        }
+    },
+    "/minting/{collectionAddress}/update-collection": {
+        "post": {
+            "description": "This method can be used to update metadata of already minted NFT collection. You can update name, description and image using this endpoint. \nChanging the owner is impossible.\nThe cost of updating the metadata of a collection is about 0.013 TON.\nA collection can be updated no more than once every 20 minutes. If you make the request multiple times within a minute, it will return the status of the previous update.",
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "updateNftCollection",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Update is in the queue",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "requestBody": {
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/CollectionUpdateRequest"
+                        }
+                    }
+                }
+            },
+            "summary": "NFT collection updating"
+        }
+    },
+    "/minting/{collectionAddress}/update-collection/{requestId}": {
+        "get": {
+            "tags": [
+                "MintingApi"
+            ],
+            "operationId": "getUpdateNftCollectionStatus",
+            "parameters": [
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "collectionAddress",
+                    "schema": {
+                        "type": "string",
+                        "example": "EQD1i4kY6Nb84f50hNcK6HMgFvwfI_HR95rl5E_JWHM2QSz7"
+                    }
+                },
+                {
+                    "in": "path",
+                    "required": true,
+                    "name": "requestId",
+                    "schema": {
+                        "type": "string",
+                        "example": ""
+                    }
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Update is in the queue",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateResponse"
+                            }
+                        }
+                    }
+                },
+                "400": {
+                    "description": "Bad request",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/FailedResponse"
+                            }
+                        }
+                    }
+                }
+            },
+            "description": "This method can be used to check the status of an NFT collection update. The method will return data only if you previously made a POST request with the same **collectionAddress**.",
+            "summary": "Status of an NFT collection update"
+        }
+    }
+}

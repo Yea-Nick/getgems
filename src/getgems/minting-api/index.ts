@@ -1,0 +1,1 @@
+export { MintingApiService } from './minting-api.service';
