@@ -1,4 +1,5 @@
 export enum EApiRequestMethod {
     GET = "GET",
-    POST = "POST"
+    POST = "POST",
+    PATCH = "PATCH"
 }
