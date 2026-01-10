@@ -55,6 +55,6 @@ const nftItems = await client.giftApi.getOwnerOffchainGifts('ownerAddress', quer
 const storageBoxId = await client.storageApi.createStorage();
 ```
 
-The method names correspond to the `operationId` values specified in the `paths/{path}/{httpRequestMethod}/operationId` for each endpoint, as outlined in the official API documentation. For further details, refer to the following link: [Getgems API Documentation](https://api.getgems.io/public-api/docs.json).
+The method names correspond to the `operationId` values specified in the `paths/{path}/{httpRequestMethod}/operationId` for each endpoint, as outlined in [JSON file of the official API documentation](https://api.getgems.io/public-api/docs.json)
 
 For full documentation of available methods for each API, please refer to the official [Getgems API Documentation](https://api.getgems.io/public-api/docs).
