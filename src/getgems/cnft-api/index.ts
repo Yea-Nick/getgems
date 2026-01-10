@@ -1,0 +1,1 @@
+export { CNFTApiService } from './cnft-api.service';
