@@ -58,3 +58,11 @@ const storageBoxId = await client.storageApi.createStorage();
 The method names correspond to the `operationId` values specified in the `paths/{path}/{httpRequestMethod}/operationId` for each endpoint, as outlined in [JSON file of the official API documentation](https://api.getgems.io/public-api/docs.json)
 
 For full documentation of available methods for each API, please refer to the official [Getgems API Documentation](https://api.getgems.io/public-api/docs).
+
+## Data Structures
+
+If you require any of the Getgems API schema types (e.g., for forming request bodies), you can import them directly from the `getgems/schemas` module.
+
+```typescript
+import { DefaultErrorObject, NftItemFull } from 'getgems/schemas'
+```
