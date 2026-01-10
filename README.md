@@ -2,7 +2,7 @@
 
 **TypeScript SDK for interacting with the Getgems NFT Marketplace API.**
 
-This package provides a convenient interface for working with the **Getgems** marketplace, supporting the ability to purchase, sell, and manage NFTs.
+This package provides a convenient interface for working with the **Getgems** marketplace, supporting the ability to retrieve collection stats, manage NFTs, and more.
 
 This npm package follows the structure and types as outlined in the official [Getgems API documentation](https://api.getgems.io/public-api/docs).
 
@@ -58,7 +58,3 @@ const storageBoxId = await client.storageApi.createStorage();
 The method names correspond to the `operationId` values specified in the `paths/{path}/{httpRequestMethod}/operationId` for each endpoint, as outlined in the official API documentation. For further details, refer to the following link: [Getgems API Documentation](https://api.getgems.io/public-api/docs.json).
 
 For full documentation of available methods for each API, please refer to the official [Getgems API Documentation](https://api.getgems.io/public-api/docs).
-
-## Data Structures
-
-For the complete data structures and detailed API responses, refer to the [Getgems API Docs](https://api.getgems.io/public-api/docs).
