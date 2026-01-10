@@ -28,24 +28,31 @@ const client = new Getgems('your-api-key');
 
 The client provides access to the following APIs:
 
-1. **readApi** – Methods for reading and fetching data from the Getgems marketplace.
-2. **mintingApi** – Methods for minting new NFTs.
-3. **cNftApi** – Methods for managing cNFTs (Certified NFTs).
-4. **giftApi** – Methods for managing gift transactions.
-5. **storageApi** – Methods for handling storage-related operations.
+1. **ReadApi** – Retrieve Collection Floor Price, NFTs in Collection, and More
+2. **MintingApi** – Create New NFTs and Collections via a Simple API
+3. **cNFTApi** – For Large NFT Collections
+4. **GiftApi** – This is a Special API for Partners Only
+5. **StorageApi** – This is a Special API for Partners Only
+
+To access the methods of these APIs, use the following properties of the created client class: `readApi`, `mintingApi`, `cNftApi`, `giftApi`, `storageApi`.
 
 ### Example:
 
 ```typescript
-// Get data using the readApi
-const collections = await client.readApi.getCollections();
-const nftDetails = await client.readApi.getNFTDetails('nft-id');
+//Get collection attributes
+const collectionAttributes = await client.readApi.getCollectionAttributes('collectionAddress');
 
-// Mint a new NFT using the mintingApi
-const mintResponse = await client.mintingApi.mintNFT(newNFTData);
+//Create minting task
+const mintingStatus = await client.mintingApi.createMinting('collectionAddress', mintingRequestBody);
 
-// Handle cNFTs with the cNftApi
-const cNFTDetails = await client.cNftApi.getCNFTDetails('cnft-id');
+//Add CNFT to collection
+const addCNFTToCollectionResponse = await client.cNftApi.addCNFTToCollection('collectionAddress', cNFTRequestBody);
+
+//Publicly unavailable. Get offchain gifts by specified owner address
+const nftItems = await client.giftApi.getOwnerOffchainGifts('ownerAddress', queryParams);
+
+//Publicly unavailable. Create box for storage
+const storageBoxId = await client.storageApi.createStorage();
 ```
 
 For full documentation of available methods for each API, please refer to the official [Getgems API Documentation](https://api.getgems.io/public-api/docs).
