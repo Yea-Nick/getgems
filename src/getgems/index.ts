@@ -1,1 +1,0 @@
-export { GetGemsService } from './getgems.service';

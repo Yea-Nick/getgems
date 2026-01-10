@@ -1,19 +1,16 @@
-import fetch from "node-fetch";
-import { EApiRequestMethod } from "../getgems.types";
-import { BuyNftFixPriceRequest, CheckTxPayload, CollectionsTopResponse, DefaultErrorObject, EHistoryType, FailedResponse, NftCollectionAttributesResponse, NftCollectionFloorResponse, NftCollectionFullResponse, NftCollectionOwnersTopResponse, NftCollectionsFullResponse, NftCollectionStatsCountResponse, NftCollectionStatsResponse, NftItemFullResponse, NftItemHistoryResponse, NftItemsByAddressRequestBody, NftItemsFullNoCursorResponse, NftItemsFullResponse, NftItemsUpdateResponse, NftStickerCollectionsFullResponse, PutUpNftForSaleRequest, ReindexResponse, TonTxStatusResponse, TransactionResponse, UserTradingInfoResponse } from "../getgems.schemas";
-import { AfterParameter, ECollectionsTopKind, LimitParameter, MaxTimeParameter, MinTimeParameter } from "../getgems.parameters";
-import { ReadApiMakeApiRequest, ReadApiQueryParams } from ".";
+import { ApiService, EApiRequestMethod, AfterParameter, LimitParameter, MinTimeParameter, MaxTimeParameter, ECollectionsTopKind } from "../api-service";
+import { BuyNftFixPriceRequest, CheckTxPayload, CollectionsTopResponse, DefaultErrorObject, EHistoryType, FailedResponse, NftCollectionAttributesResponse, NftCollectionFloorResponse, NftCollectionFullResponse, NftCollectionOwnersTopResponse, NftCollectionsFullResponse, NftCollectionStatsCountResponse, NftCollectionStatsResponse, NftItemFullResponse, NftItemHistoryResponse, NftItemsByAddressRequestBody, NftItemsFullNoCursorResponse, NftItemsFullResponse, NftItemsUpdateResponse, NftStickerCollectionsFullResponse, PutUpNftForSaleRequest, ReindexResponse, TonTxStatusResponse, TransactionResponse, UserTradingInfoResponse } from "../schemas";
 
-export class ReadApiService {
-    private readonly READ_API_BASE_URL = 'https://api.getgems.io/public-api/v1';
-
-    constructor(private readonly API_KEY: string) { }
+export class ReadApiService extends ApiService {
+    constructor(API_KEY: string) {
+        super(API_KEY);
+    }
 
     //Get NFT collection info
     async getCollectionByAddress(collectionAddress: string) {
         return this.makeApiRequest<NftCollectionFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `collection/${collectionAddress}`,
+            path: `/v1/collection/${collectionAddress}`,
         });
     }
 
@@ -21,7 +18,7 @@ export class ReadApiService {
     async getNftByAddress(nftAddress: string) {
         return this.makeApiRequest<NftItemFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `nft/${nftAddress}`
+            path: `/v1/nft/${nftAddress}`
         });
     }
 
@@ -29,7 +26,7 @@ export class ReadApiService {
     async getCollectionNfts(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `nfts/collection/${collectionAddress}`,
+            path: `/v1/nfts/collection/${collectionAddress}`,
             queryParams
         });
     }
@@ -38,7 +35,7 @@ export class ReadApiService {
     async getOwnerNfts(ownerAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `nfts/owner/${ownerAddress}`,
+            path: `/v1/nfts/owner/${ownerAddress}`,
             queryParams
         });
     };
@@ -47,7 +44,7 @@ export class ReadApiService {
     async getCollectionOwnerNfts(collectionAddress: string, ownerAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `nfts/collection/${collectionAddress}/owner/${ownerAddress}`,
+            path: `/v1/nfts/collection/${collectionAddress}/owner/${ownerAddress}`,
             queryParams
         });
     };
@@ -56,7 +53,7 @@ export class ReadApiService {
     async getNftsOnSale(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | DefaultErrorObject>({
             method: EApiRequestMethod.GET,
-            path: `nfts/on-sale/${collectionAddress}`,
+            path: `/v1/nfts/on-sale/${collectionAddress}`,
             queryParams
         });
     };
@@ -65,7 +62,7 @@ export class ReadApiService {
     async getOffchainNftsOnSale(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | DefaultErrorObject>({
             method: EApiRequestMethod.GET,
-            path: `nfts/offchain/on-sale/${collectionAddress}`,
+            path: `/v1/nfts/offchain/on-sale/${collectionAddress}`,
             queryParams
         });
     };
@@ -74,7 +71,7 @@ export class ReadApiService {
     async getOffchainGiftsOnSale(queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsFullResponse | DefaultErrorObject>({
             method: EApiRequestMethod.GET,
-            path: `nfts/offchain/on-sale/gifts`,
+            path: `/v1/nfts/offchain/on-sale/gifts`,
             queryParams
         });
     };
@@ -83,7 +80,7 @@ export class ReadApiService {
     async getNftsByAddresses(body: NftItemsByAddressRequestBody) {
         return this.makeApiRequest<NftItemsFullNoCursorResponse | DefaultErrorObject>({
             method: EApiRequestMethod.POST,
-            path: `nfts/list`,
+            path: `/v1/nfts/list`,
             body: JSON.stringify(body)
         });
     };
@@ -92,7 +89,7 @@ export class ReadApiService {
     async getNftsUpdates(queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftItemsUpdateResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `nfts/updates`,
+            path: `/v1/nfts/updates`,
             queryParams
         });
     };
@@ -101,7 +98,7 @@ export class ReadApiService {
     async getCollectionStats(collectionAddress: string) {
         return this.makeApiRequest<NftCollectionStatsResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `collection/stats/${collectionAddress}`
+            path: `/v1/collection/stats/${collectionAddress}`
         });
     };
 
@@ -109,7 +106,7 @@ export class ReadApiService {
     async getNftHistory(nftAddress: string, queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
         return this.makeApiRequest<NftItemHistoryResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `nft/history/${nftAddress}`,
+            path: `/v1/nft/history/${nftAddress}`,
             queryParams
         });
     };
@@ -118,7 +115,7 @@ export class ReadApiService {
     async getNftCollectionHistory(collectionAddress: string, queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
         return this.makeApiRequest<NftItemHistoryResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `collection/history/${collectionAddress}`,
+            path: `/v1/collection/history/${collectionAddress}`,
             queryParams
         });
     };
@@ -127,7 +124,7 @@ export class ReadApiService {
     async getGiftsHistory(queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
         return this.makeApiRequest<NftItemHistoryResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `nfts/history/gifts`,
+            path: `/v1/nfts/history/gifts`,
             queryParams
         });
     };
@@ -136,7 +133,7 @@ export class ReadApiService {
     async getStickersHistory(queryParams?: { minTime?: MinTimeParameter, maxTime?: MaxTimeParameter, after?: AfterParameter, limit?: LimitParameter, types?: EHistoryType[], reverse?: boolean; }) {
         return this.makeApiRequest<NftItemHistoryResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `nfts/history/stickers`,
+            path: `/v1/nfts/history/stickers`,
             queryParams
         });
     };
@@ -145,7 +142,7 @@ export class ReadApiService {
     async buyNftFixPrice(nftAddress: string, body: BuyNftFixPriceRequest) {
         return this.makeApiRequest<TransactionResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
-            path: `nfts/buy-fix-price/${nftAddress}`,
+            path: `/v1/nfts/buy-fix-price/${nftAddress}`,
             body: JSON.stringify(body)
         });
     };
@@ -154,7 +151,7 @@ export class ReadApiService {
     async putUpNftForSaleFixPrice(nftAddress: string, body: PutUpNftForSaleRequest) {
         return this.makeApiRequest<TransactionResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
-            path: `nfts/put-on-sale-fix-price/${nftAddress}`,
+            path: `/v1/nfts/put-on-sale-fix-price/${nftAddress}`,
             body: JSON.stringify(body)
         });
     };
@@ -163,7 +160,7 @@ export class ReadApiService {
     async getCollectionStatsCount(collectionAddress: string) {
         return this.makeApiRequest<NftCollectionStatsCountResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `collection/stats-count/${collectionAddress}`
+            path: `/v1/collection/stats-count/${collectionAddress}`
         });
     };
 
@@ -171,7 +168,7 @@ export class ReadApiService {
     async getCollectionTopOwners(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftCollectionOwnersTopResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `collection/top-owners/${collectionAddress}`,
+            path: `/v1/collection/top-owners/${collectionAddress}`,
             queryParams
         });
     };
@@ -180,7 +177,7 @@ export class ReadApiService {
     async getCollectionAttributes(collectionAddress: string) {
         return this.makeApiRequest<NftCollectionAttributesResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `collection/attributes/${collectionAddress}`
+            path: `/v1/collection/attributes/${collectionAddress}`
         });
     };
 
@@ -191,7 +188,7 @@ export class ReadApiService {
     async getCollectionBasicInfo(collectionAddress: string) {
         return this.makeApiRequest<NftCollectionFloorResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `collection/basic-info/${collectionAddress}`
+            path: `/v1/collection/basic-info/${collectionAddress}`
         });
     };
 
@@ -199,7 +196,7 @@ export class ReadApiService {
     async reindexNftCollection(collectionAddress: string) {
         return this.makeApiRequest<ReindexResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
-            path: `collection/reindex/${collectionAddress}`
+            path: `/v1/collection/reindex/${collectionAddress}`
         });
     };
 
@@ -207,7 +204,7 @@ export class ReadApiService {
     async reindexNftItem(nftAddress: string) {
         return this.makeApiRequest<ReindexResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
-            path: `nft/reindex/${nftAddress}`
+            path: `/v1/nft/reindex/${nftAddress}`
         });
     };
 
@@ -215,7 +212,7 @@ export class ReadApiService {
     async getUserTradingInfo(userAddress: string) {
         return this.makeApiRequest<UserTradingInfoResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `user-trading-info/${userAddress}`
+            path: `/v1/user-trading-info/${userAddress}`
         });
     };
 
@@ -223,7 +220,7 @@ export class ReadApiService {
     async getGiftCollections(queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftCollectionsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `gifts/collections`,
+            path: `/v1/gifts/collections`,
             queryParams
         });
     };
@@ -232,7 +229,7 @@ export class ReadApiService {
     async getStickerCollections(queryParams: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftStickerCollectionsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `stickers/collections`,
+            path: `/v1/stickers/collections`,
             queryParams
         });
     };
@@ -241,7 +238,7 @@ export class ReadApiService {
     async checkTxStatus(body: CheckTxPayload) {
         return this.makeApiRequest<TonTxStatusResponse | FailedResponse>({
             method: EApiRequestMethod.POST,
-            path: `check-tx-status`,
+            path: `/v1/check-tx-status`,
             body: JSON.stringify(body)
         });
     };
@@ -250,7 +247,7 @@ export class ReadApiService {
     async getCollectionTop(queryParams?: { kind?: ECollectionsTopKind, after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<CollectionsTopResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `collections/top`,
+            path: `/v1/collections/top`,
             queryParams
         });
     };
@@ -259,37 +256,8 @@ export class ReadApiService {
     async getGiftTop(queryParams?: { kind?: ECollectionsTopKind, after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<CollectionsTopResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
-            path: `gifts/collections/top`,
+            path: `/v1/gifts/collections/top`,
             queryParams
         });
     };
-
-    private async makeApiRequest<Response>({ method, path, body, queryParams }: ReadApiMakeApiRequest) {
-        try {
-            const res = await fetch(this.makeUrl(path, queryParams), {
-                method,
-                body,
-                headers: {
-                    accept: 'application/json',
-                    'Authorization': this.API_KEY
-                }
-            }).then(res => res.json() as Promise<Response>);
-
-            return res;
-        } catch (err) {
-            throw new Error(`Make API reqeuest: ${err}`);
-        }
-    }
-
-    private makeUrl(path: string, queryParams: ReadApiQueryParams | undefined) {
-        let url = `${this.READ_API_BASE_URL}/${path}`;
-        if (queryParams) {
-            url += `?${this.getQueryParams(queryParams)}`;
-        }
-        return url;
-    }
-
-    private getQueryParams(params: ReadApiQueryParams) {
-        return new URLSearchParams(Object.fromEntries(Object.entries(params).filter(([_, val]) => val !== undefined))).toString();
-    }
 }
