@@ -226,7 +226,7 @@ export class ReadApiService extends ApiService {
     };
 
     //Get sticker collections
-    async getStickerCollections(queryParams: { after?: AfterParameter, limit?: LimitParameter; }) {
+    async getStickerCollections(queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
         return this.makeApiRequest<NftStickerCollectionsFullResponse | FailedResponse>({
             method: EApiRequestMethod.GET,
             path: `/v1/stickers/collections`,
