@@ -874,3 +874,73 @@ export interface CollectionsTopItem {
     floorPrice: number;
     diffPercent?: number;
 }
+
+export interface OfferListResponse {
+    success: boolean;
+    response: {
+        items: Offer[];
+        cursor: string | null;
+    };
+}
+
+export interface Offer {
+    nftAddress: string | null;
+    collectionAddress: string | null;
+    fullPrice: string;
+    profitPrice: string;
+    royaltyPrice: string;
+    feePrice: string;
+    currency: ECurrency;
+    offerAddress: string;
+    feeAddress: string;
+    royaltyAddress: string;
+    finishAt: number;
+    isCollectionOffer: boolean;
+    isOffchain: boolean;
+    purchasedQuantity?: number;
+    maxQuantity?: number;
+}
+
+export interface CreateNftOfferPayload {
+    userAddress: string;
+    nftAddress: string;
+    price: string;
+    finishAt: number;
+    omitRoyalty?: boolean | null;
+    nftVersion?: string | null;
+    forOffchain?: boolean | null;
+}
+
+export interface CreateCollectionOfferPayload {
+    userAddress: string;
+    collectionAddress: string;
+    price: string;
+    finishAt: number;
+    amount: number;
+    omitRoyalty?: boolean | null;
+    attributes?: { trait: string, values: string[]; }[] | null;
+    forOffchain?: boolean | null;
+}
+
+export interface AcceptOfferRequest {
+    userAddress: string;
+    nftAddress: string;
+    offerAddress: string;
+}
+
+export interface CancelOfferRequest {
+    userAddress: string;
+    offerAddress: string;
+}
+
+export interface UserOfferListResponse {
+    success: boolean;
+    response: {
+        items: OfferWithStatus[];
+        cursor: string | null;
+    };
+}
+
+export interface OfferWithStatus extends Offer {
+    isCompleted: boolean;
+}
