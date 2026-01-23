@@ -61,8 +61,8 @@ For full documentation of available methods for each API, please refer to the of
 
 ## Data Structures
 
-If you require any of the Getgems API schema types (e.g., for forming request bodies), you can import them directly from `getgems/schemas`.
+If you require any of the Getgems API schema types (e.g., for forming request bodies), you can import them directly from `getgems`.
 
 ```typescript
-import { DefaultErrorObject, NftItemFull } from 'getgems/schemas'
+import { DefaultErrorObject, NftItemFull } from 'getgems'
 ```

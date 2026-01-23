@@ -1,5 +1,5 @@
 import { ApiService, EApiRequestMethod, AfterParameter, LimitParameter, MinTimeParameter, MaxTimeParameter, ECollectionsTopKind } from "../api-service";
-import { BuyNftFixPriceRequest, CheckTxPayload, CollectionsTopResponse, DefaultErrorObject, EHistoryType, FailedResponse, NftCollectionAttributesResponse, NftCollectionFloorResponse, NftCollectionFullResponse, NftCollectionOwnersTopResponse, NftCollectionsFullResponse, NftCollectionStatsCountResponse, NftCollectionStatsResponse, NftItemFullResponse, NftItemHistoryResponse, NftItemsByAddressRequestBody, NftItemsFullNoCursorResponse, NftItemsFullResponse, NftItemsUpdateResponse, NftStickerCollectionsFullResponse, PutUpNftForSaleRequest, ReindexResponse, TonTxStatusResponse, TransactionResponse, UserTradingInfoResponse } from "../schemas";
+import { AcceptOfferRequest, BuyNftFixPriceRequest, CancelOfferRequest, CheckTxPayload, CollectionsTopResponse, CreateCollectionOfferPayload, CreateNftOfferPayload, DefaultErrorObject, EHistoryType, FailedResponse, NftCollectionAttributesResponse, NftCollectionFloorResponse, NftCollectionFullResponse, NftCollectionOwnersTopResponse, NftCollectionsFullResponse, NftCollectionStatsCountResponse, NftCollectionStatsResponse, NftItemFullResponse, NftItemHistoryResponse, NftItemsByAddressRequestBody, NftItemsFullNoCursorResponse, NftItemsFullResponse, NftItemsUpdateResponse, NftStickerCollectionsFullResponse, OfferListResponse, PutUpNftForSaleRequest, ReindexResponse, TonTxStatusResponse, TransactionResponse, UserOfferListResponse, UserTradingInfoResponse } from "../schemas";
 
 export class ReadApiService extends ApiService {
     constructor(API_KEY: string) {
@@ -258,6 +258,78 @@ export class ReadApiService extends ApiService {
             method: EApiRequestMethod.GET,
             path: `/v1/gifts/collections/top`,
             queryParams
+        });
+    };
+
+    //Get offers for specified NFT
+    async getNftOffers(nftAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+        return this.makeApiRequest<OfferListResponse | FailedResponse>({
+            method: EApiRequestMethod.GET,
+            path: `/v1/offers/nft/${nftAddress}`,
+            queryParams
+        });
+    };
+
+    //Get offers for specified collection
+    async getCollectionOffers(collectionAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+        return this.makeApiRequest<OfferListResponse | FailedResponse>({
+            method: EApiRequestMethod.GET,
+            path: `/v1/offers/collection/${collectionAddress}`,
+            queryParams
+        });
+    };
+
+    //Get offers created by user
+    async getUserOffers(userAddress: string, queryParams?: { after?: AfterParameter, limit?: LimitParameter; }) {
+        return this.makeApiRequest<UserOfferListResponse | FailedResponse>({
+            method: EApiRequestMethod.GET,
+            path: `/v1/offers/by-user/${userAddress}`,
+            queryParams
+        });
+    };
+
+    //Create a new offer for the NFT. Works with offchain and onchain NFTs
+    async createNftOffer(body: CreateNftOfferPayload) {
+        return this.makeApiRequest<TransactionResponse | FailedResponse>({
+            method: EApiRequestMethod.POST,
+            path: `/v1/offer/nft/create`,
+            body: JSON.stringify(body)
+        });
+    };
+
+    //Create new offer for NFT collection
+    async createCollectionOffer(body: CreateCollectionOfferPayload) {
+        return this.makeApiRequest<TransactionResponse | FailedResponse>({
+            method: EApiRequestMethod.POST,
+            path: `/v1/offer/collection/create`,
+            body: JSON.stringify(body)
+        });
+    };
+
+    //Accept offer
+    async acceptOffer(body: AcceptOfferRequest) {
+        return this.makeApiRequest<TransactionResponse | DefaultErrorObject>({
+            method: EApiRequestMethod.POST,
+            path: `/v1/offer/accept`,
+            body: JSON.stringify(body)
+        });
+    };
+
+    //Cancel NFT offer
+    async cancelNftOffer(body: CancelOfferRequest) {
+        return this.makeApiRequest<TransactionResponse | DefaultErrorObject>({
+            method: EApiRequestMethod.POST,
+            path: `/v1/offer/nft/cancel`,
+            body: JSON.stringify(body)
+        });
+    };
+
+    //Cancel Collection offer
+    async cancelCollectionOffer(body: CancelOfferRequest) {
+        return this.makeApiRequest<TransactionResponse | DefaultErrorObject>({
+            method: EApiRequestMethod.POST,
+            path: `/v1/offer/collection/cancel`,
+            body: JSON.stringify(body)
         });
     };
 }
